@@ -75,10 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
               isOriginals:true,
             ),
           ),
-          SliverToBoxAdapter(
-            child: ContentList(
-              title: 'Tranding',
-              contentList : trending,
+          SliverPadding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            sliver: SliverToBoxAdapter(
+              child: ContentList(
+                title: 'Trending',
+                contentList : trending,
+              ),
             ),
           ),
         ],
