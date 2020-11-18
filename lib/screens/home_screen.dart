@@ -3,6 +3,7 @@ import 'package:netflix/data/data.dart';
 import 'package:netflix/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
+  // PageStorageKey key 를 보내면 현재 다른 화면으로 갔다 와도 현재 스크롤 위치를 기억함
   const HomeScreen({Key key}) : super(key: key);
 
   @override
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(top: 20.0),
             sliver: SliverToBoxAdapter(
               child: Previews(
+                key : PageStorageKey('previews'),
                 title: 'Previews',
                 contentList: previews,
               ),
@@ -64,12 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: ContentList(
+              key : PageStorageKey('myList'),
               title: 'My List',
               contentList : myList,
             ),
           ),
           SliverToBoxAdapter(
             child: ContentList(
+              key : PageStorageKey('originals'),
               title: 'Netflix Originals',
               contentList : originals,
               isOriginals:true,
@@ -79,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(bottom: 20.0),
             sliver: SliverToBoxAdapter(
               child: ContentList(
+                key : PageStorageKey('trending'),
                 title: 'Trending',
                 contentList : trending,
               ),

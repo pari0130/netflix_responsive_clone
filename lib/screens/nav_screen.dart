@@ -8,7 +8,8 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    HomeScreen(),
+    // PageStorageKey key 를 보내면 현재 다른 화면으로 갔다 와도 현재 스크롤 위치를 기억함
+    HomeScreen(key: PageStorageKey('homeScreen')),
     Scaffold(),
     Scaffold(),
     Scaffold(),
@@ -19,6 +20,7 @@ class _NavScreenState extends State<NavScreen> {
     'Home': Icons.home,
     'Search': Icons.search,
     'Comming Soon': Icons.queue_play_next,
+    'Downloads' : Icons.file_download,
     'More': Icons.menu,
   };
 
@@ -28,8 +30,8 @@ class _NavScreenState extends State<NavScreen> {
   Widget build(BuildContext context) {
     return Scaffold( // 현재 선택된 화면을 나타냄.
       body: _screens[_currentIndex], // _screen list에 있는 index 값에 따라 화면을 표시, 첫화면 0 index는 Homescreen
-      backgroundColor: Colors.black,
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: _icons
             .map(
