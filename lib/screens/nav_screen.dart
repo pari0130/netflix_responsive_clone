@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/cubits/cubits.dart';
+import 'package:netflix/widgets/widgets.dart';
 import 'screens.dart';
 
 class NavScreen extends StatefulWidget {
@@ -29,8 +32,14 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( // 현재 선택된 화면을 나타냄.
-      body: _screens[_currentIndex], // _screen list에 있는 index 값에 따라 화면을 표시, 첫화면 0 index는 Homescreen
-      bottomNavigationBar: BottomNavigationBar(
+      // BlocProvider cubit으로 현재 스크롤 offset 처리..?
+      body: BlocProvider<AppBarCubit>(
+          create: (_) => AppBarCubit(),
+          child: _screens[_currentIndex]
+      ), // _screen list에 있는 index 값에 따라 화면을 표시, 첫화면 0 index는 Homescreen
+        // 데스크탑 모드가 아닐 경우에만 네비 바를 보여주고 : 그렇지 않으면 null 로 숨김
+      bottomNavigationBar: !Responsive.isDesktop(context) ?
+      BottomNavigationBar(
         backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: _icons
@@ -51,7 +60,7 @@ class _NavScreenState extends State<NavScreen> {
         unselectedItemColor: Colors.grey,
         unselectedFontSize: 11.0,
         onTap: (index) => setState(() => _currentIndex = index ),
-      ),
+      ) : null
     );
   }
 }
